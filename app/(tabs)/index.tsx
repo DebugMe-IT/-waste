@@ -1,98 +1,142 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import React from 'react';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
+    <ScrollView style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2972/2972185.png' }}
+          style={styles.logo}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+        <Text style={styles.title}>♻️ Not Waste</Text>
+        <Text style={styles.subtitle}>
+          Turn your waste into value — for a cleaner, greener world!
+        </Text>
+      </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      {/* Cards */}
+      <View style={styles.cardsContainer}>
+        <View style={styles.card}>
+          <Image
+            source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1055/1055646.png' }}
+            style={styles.cardImage}
+          />
+          <Text style={styles.cardTitle}>Sell Your Waste</Text>
+          <Text style={styles.cardText}>
+            Post your recyclable items and get paid by buyers nearby.
+          </Text>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Start Selling</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.card}>
+          <Image
+            source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1995/1995526.png' }}
+            style={styles.cardImage}
+          />
+          <Text style={styles.cardTitle}>Buy Recycled Items</Text>
+          <Text style={styles.cardText}>
+            Explore eco-friendly products made from recycled materials.
+          </Text>
+          <TouchableOpacity style={[styles.button, { backgroundColor: '#2E7D32' }]}>
+            <Text style={styles.buttonText}>Explore Items</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* About Section */}
+      <View style={styles.about}>
+        <Text style={styles.aboutTitle}>Why Not Waste?</Text>
+        <Text style={styles.aboutText}>
+          We believe in giving waste a second life — connecting communities and
+          businesses to recycle, reuse, and reduce environmental pollution.
+        </Text>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    backgroundColor: '#E8F5E9',
+    flex: 1,
   },
-  stepContainer: {
-    gap: 8,
+  header: {
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#A5D6A7',
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+  },
+  logo: {
+    width: 80,
+    height: 80,
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#1B5E20',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#2E7D32',
+    textAlign: 'center',
+    marginTop: 5,
+  },
+  cardsContainer: {
+    padding: 16,
+  },
+  card: {
+    backgroundColor: '#C8E6C9',
+    borderRadius: 20,
+    padding: 20,
+    alignItems: 'center',
+    marginBottom: 16,
+    elevation: 3,
+  },
+  cardImage: {
+    width: 80,
+    height: 80,
+  },
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#1B5E20',
+    marginVertical: 10,
+  },
+  cardText: {
+    textAlign: 'center',
+    color: '#33691E',
+  },
+  button: {
+    marginTop: 10,
+    backgroundColor: '#4CAF50',
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    borderRadius: 25,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
+  about: {
+    backgroundColor: '#A5D6A7',
+    margin: 16,
+    borderRadius: 16,
+    padding: 16,
+  },
+  aboutTitle: {
+    color: '#1B5E20',
+    fontWeight: '700',
+    fontSize: 20,
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  aboutText: {
+    color: '#2E7D32',
+    fontSize: 15,
   },
 });
